@@ -16,7 +16,7 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Install dependencies
-      run: nuget restore selfDPC.sln
+      run: dotnet restore selfDPC.Android/selfDPC.Android.csproj
 
     - name: Build
       run: dotnet build --no-restore selfDPC.Android/selfDPC.Android.csproj
