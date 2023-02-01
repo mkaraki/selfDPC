@@ -17,15 +17,9 @@ jobs:
         
     - name: Install android support
       run: dotnet workload install android
-
-    - name: Install dependencies
-      run: dotnet restore selfDPC.Android/selfDPC.Android.csproj
-
-    - name: Build
-      run: dotnet build --no-restore selfDPC.Android/selfDPC.Android.csproj
       
     - name: Publish
-      run: dotnet publish --no-build selfDPC.Android/selfDPC.Android.csproj
+      run: dotnet publish selfDPC.Android/selfDPC.Android.csproj
 
     - uses: actions/upload-artifact@v3
       with:
