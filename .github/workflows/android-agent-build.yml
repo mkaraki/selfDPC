@@ -9,11 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set default Xamarin SDK versions
-      run: |
-        $VM_ASSETS/select-xamarin-sdk-v2.sh --mono=6.10 --android=9.0
 
-    - name: Setup .NET Core SDK 5.0.x
+    - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '6.0.x'
@@ -22,4 +19,12 @@ jobs:
       run: nuget restore selfDPC.sln
 
     - name: Build
-      run: msbuild selfDPC.Android/selfDPC.Android.csproj /t:PackageForAndroid /p:Configuration=Debug
+      run: dotnet build --no-restore selfDPC.Android/selfDPC.Android.csproj
+      
+    - name: Publish
+      run: dotnet publish --no-build selfDPC.Android/selfDPC.Android.csproj
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: selfDPC.Android
+        path: selfDPC.Android/bin/Debug/net6.0-android/publish/*
